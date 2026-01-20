@@ -1,0 +1,9 @@
+fp-info-cache
+*-backups
+*.gbr
+*.gbrjob
+*.lck
+*.drl
+#auto_saved_files#
+.venv
+*.stl
