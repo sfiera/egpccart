@@ -1,6 +1,11 @@
 Simple EEPROM cartridge
 =======================
 
+.. image:: pcb.png
+   :alt: ROM Cartridge PCB
+   :width: 300
+   :align: center
+
 This is a KiCad_ project for a simple ROM-based cartridge. With a ROM chip soldered directly to the board, it is a drop-in replacement for authentic gamepock cartridges. With a DIP-28 socket, it won’t fit into the original cartridge shell, but can use the cartridge-window.stl bottom instead.
 
 .. _KiCad: https://www.kicad.org/
