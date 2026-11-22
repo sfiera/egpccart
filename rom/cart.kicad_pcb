@@ -3415,7 +3415,7 @@
 			(justify left)
 		)
 	)
-	(gr_text "gamepock.org\n/cart/v1"
+	(gr_text "https://pocket.\ncassette.vision\n/mod/romcart"
 		(at 150 110.5 0)
 		(layer "F.SilkS")
 		(uuid "f7d97154-620e-4a7c-802f-4a194033860b")
