@@ -5,8 +5,11 @@ import cadquery
 import math
 from cadquery import exporters
 
-
 W, H, D = 58, 61, 20.2
+TOP = 8.6
+BOT = 11.6
+PCB = 1.7
+EXT = 1.4
 
 
 def main():
@@ -41,6 +44,16 @@ def main():
             .center(0, H / 2 - 12.5)
             .box(W - 4, 1, 8.5, centered=(True, True, False))
         )
+        .union(
+            cadquery.Workplane("XY")
+            .center(13.5, -H / 2 + 7.5)
+            .box(1, 11, TOP, centered=(True, True, False))
+        )
+        .union(
+            cadquery.Workplane("XY")
+            .center(-13.5, -H / 2 + 7.5)
+            .box(1, 11, TOP, centered=(True, True, False))
+        )
         .cut(
             cadquery.Workplane("XY")
             .center(0, H / 2 - 32 / 2 - 9.5)
@@ -58,11 +71,11 @@ def main():
 
     bottom = (
         cadquery.Workplane("XY")
-        .box(100, 100, 11.6, centered=(True, True, False))
+        .box(100, 100, BOT, centered=(True, True, False))
         .cut(
             cadquery.Workplane("XY")
             .box(W - 2, H - 3, 100, centered=(True, True, False))
-            .translate((0, -0.5, 11.6 - 1.4))
+            .translate((0, -0.5, BOT - 1.4))
         )
         .cut(
             cadquery.Workplane("XY")
@@ -74,11 +87,11 @@ def main():
         .union(
             cadquery.Workplane("XY")
             .center(0, H / 2 - 23.5)
-            .cylinder(11.6, 4.5 / 2, centered=(True, True, False))
+            .cylinder(BOT, 4.8 / 2, centered=(True, True, False))
             .union(
                 cadquery.Workplane("XY")
                 .center(0, H / 2 - 23.5)
-                .box(10, 1, 9.5, centered=(True, True, False))
+                .box(10, 1, BOT - PCB, centered=(True, True, False))
             )
             .faces(">Z")
             .workplane()
@@ -87,51 +100,51 @@ def main():
         .union(
             cadquery.Workplane("XY")
             .center(0, H / 2 - 12.5)
-            .box(W - 4, 1, 9.5, centered=(True, True, False))
+            .box(W - 4, 1, BOT - PCB, centered=(True, True, False))
             .union(
                 cadquery.Workplane("XY")
-                .center(-W / 2 + 2 + 4.9 / 2, H / 2 - 12.5)
-                .box(4.9, 1, 11.6, centered=(True, True, False))
+                .center(-W / 2 + 2 + 5.5 / 2, H / 2 - 12.5)
+                .box(5.5, 1, BOT, centered=(True, True, False))
             )
             .union(
                 cadquery.Workplane("XY")
-                .center(W / 2 - 2 - 4.9 / 2, H / 2 - 12.5)
-                .box(4.9, 1, 11.6, centered=(True, True, False))
+                .center(W / 2 - 2 - 5.5 / 2, H / 2 - 12.5)
+                .box(5.5, 1, BOT, centered=(True, True, False))
             )
         )
         .union(
             cadquery.Workplane("XY")
             .center(-W / 2 + 2 + 4, H / 2 - 23)
-            .box(8, 1, 9.5, centered=(True, True, False))
+            .box(8, 1, BOT - PCB, centered=(True, True, False))
             .union(
                 cadquery.Workplane("XY")
                 .center(-W / 2 + 2 + 2.75, H / 2 - 23)
-                .box(5.5, 1, 13, centered=(True, True, False))
+                .box(5.5, 1, BOT + EXT, centered=(True, True, False))
             )
         )
         .union(
             cadquery.Workplane("XY")
             .center(W / 2 - 2 - 4.25, H / 2 - 25)
-            .box(8.5, 1, 13, centered=(True, True, False))
+            .box(8.5, 1, BOT + EXT, centered=(True, True, False))
         )
         .union(
             cadquery.Workplane("XY")
             .center(11.5, -H / 2 + 7.5)
-            .box(1, 11, 9.5, centered=(True, True, False))
+            .box(1, 11, BOT - PCB, centered=(True, True, False))
             .union(
                 cadquery.Workplane("XY")
-                .center(11.5, -H / 2 + 6.25)
-                .box(1, 8.5, 13, centered=(True, True, False))
+                .center(11.5, -H / 2 + 6.5)
+                .box(1, 9.0, BOT + EXT, centered=(True, True, False))
             )
         )
         .union(
             cadquery.Workplane("XY")
             .center(-11.5, -H / 2 + 7.5)
-            .box(1, 11, 9.5, centered=(True, True, False))
+            .box(1, 11, BOT - PCB, centered=(True, True, False))
             .union(
                 cadquery.Workplane("XY")
-                .center(-11.5, -H / 2 + 6.25)
-                .box(1, 8.5, 13, centered=(True, True, False))
+                .center(-11.5, -H / 2 + 6.5)
+                .box(1, 9.0, BOT + EXT, centered=(True, True, False))
             )
         )
         .intersect(
@@ -151,8 +164,8 @@ def main():
         .union(bottom)
         .cut(
             cadquery.Workplane("XY")
-            .center(0, -6.25)
-            .box(48, 22.5, 3, centered=(True, True, False))
+            .center(0, -6.5)
+            .box(48, 22, 3, centered=(True, True, False))
         )
     )
 
