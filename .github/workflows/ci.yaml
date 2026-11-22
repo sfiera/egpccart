@@ -1,0 +1,21 @@
+name: KiCad CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  gerbers:
+    runs-on: ubuntu-latest
+    container:
+      image: kicad/kicad:10.0
+
+    steps:
+      - uses: actions/checkout@v4
+      - run: make gamepock-cart.zip
+        working-directory: rom
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gamepock-cart
+          path: rom/gamepock-cart.zip
+
